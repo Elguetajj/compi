@@ -1,0 +1,71 @@
+program -> T_CLASS T_ID decls
+decls ->  T_LCB field_decl method_decl T_RCB 
+decls ->  T_LCB method_decl field_decl T_RCB
+decls ->  T_LCB field_decl T_RCB
+decls ->  T_LCB method_decl T_RCB
+field_decl -> var_decl
+field_decl -> field_decl field_decl
+var_decl -> type T_ID T_LSB literal T_RSB
+var_decl -> type T_ID T_SEMICOLON
+var_decl -> type T_ID list_decl T_SEMICOLON
+list_decl -> T_COMMA T_ID list_decl
+list_decl -> ''
+method_decl -> type T_ID T_LPAREN method_args T_RPAREN block
+method_decl -> T_VOID T_ID T_LPAREN method_args T_RPAREN block
+method_decl -> method_decl method_decl
+method_args -> type T_ID method_args_list
+method_args -> ''
+method_args_list -> ''
+method_args_list -> T_COMMA type T_ID method_args_list
+block -> T_LCB var_decl statement T_RCB
+block -> T_LCB statement T_RCB
+block -> T_LCB var_decl T_RCB
+statement -> location T_ASSIGN expr T_SEMICOLON
+statement -> method_call T_SEMICOLON
+statement -> T_IF T_LPAREN expr T_RPAREN block else_statement
+else_statement -> ''
+else_statement -> T_ELSE block
+statement -> T_FOR T_ID T_ASSIGN expr T_COMMA expr block
+statement -> T_RETURN expr T_SEMICOLON
+statement -> T_BREAK T_SEMICOLON
+statement -> T_CONTINUE T_SEMICOLON
+statement -> ''
+statement -> statement statement
+method_call -> T_ID T_LPAREN method_call_args T_RPAREN
+method_call_args -> expr method_call_args_list
+method_call_args ->  ''
+method_call_args_list -> ''
+method_call_args_list -> T_COMMA expr method_call_args_list
+location -> T_ID
+location -> T_ID T_LSB expr T_RSB
+expr -> expr bin_op expr
+expr -> location
+expr -> method_call
+expr -> literal
+expr -> T_MINUS expr
+expr -> T_NOT expr
+expr -> T_LPAREN expr T_RPAREN
+bin_op -> arith_op
+bin_op -> rel_op
+bin_op -> eq_op
+bin_op -> cond_op
+arith_op -> T_PLUS
+arith_op -> T_MINUS
+arith_op -> T_MULT
+arith_op -> T_DIV
+arith_op -> T_MOD
+rel_op -> T_LT
+rel_op -> T_GT
+rel_op -> T_LEQ
+rel_op -> T_GEQ
+eq_op -> T_EQ
+eq_op -> T_NEQ
+cond_op -> T_AND
+cond_op -> T_OR
+literal -> T_INTCONSTANT
+literal -> T_CHARCONSTANT
+literal -> T_TRUE
+literal -> T_FALSE
+type -> T_BOOLTYPE
+type -> T_INTTYPE
+

@@ -1,0 +1,10 @@
+class Program { 
+    void main( ){ 
+        if(qq==y){
+            ab = ww;
+        }else{
+            int w;
+            int x;
+        }
+    }
+}
